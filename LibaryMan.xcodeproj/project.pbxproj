@@ -10,9 +10,22 @@
 		4B4E662B2EDCAA69008E280D /* LibaryMan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LibaryMan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		4B4E66732EDCB6A6008E280D /* Exceptions for "LibaryMan" folder in "LibaryMan" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 4B4E662A2EDCAA69008E280D /* LibaryMan */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		4B4E662D2EDCAA69008E280D /* LibaryMan */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				4B4E66732EDCB6A6008E280D /* Exceptions for "LibaryMan" folder in "LibaryMan" target */,
+			);
 			path = LibaryMan;
 			sourceTree = "<group>";
 		};
@@ -253,6 +266,11 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LibaryMan/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Приложению нужен доступ к камере для сканирования цитат из книг.\n";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Приложению нужен доступ к микрофону для записи голосовых заметок во время чтения.\n";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Приложению нужен доступ к фотографиям для добавления обложек книг.\n";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Приложению нужен доступ к распознаванию речи для преобразования ваших голосовых заметок в текст.\n";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -284,6 +302,11 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LibaryMan/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Приложению нужен доступ к камере для сканирования цитат из книг.\n";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Приложению нужен доступ к микрофону для записи голосовых заметок во время чтения.\n";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Приложению нужен доступ к фотографиям для добавления обложек книг.\n";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Приложению нужен доступ к распознаванию речи для преобразования ваших голосовых заметок в текст.\n";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
