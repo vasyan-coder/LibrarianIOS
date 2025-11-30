@@ -93,94 +93,8 @@ struct QuickRecordView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                // Фон
-                ZStack {
-                    AppGradients.background
-                    
-                    RadialGradient(
-                        colors: [
-                            AppColors.orange.opacity(0.3),
-                            AppColors.accent.opacity(0.1),
-                            Color.clear
-                        ],
-                        center: .center,
-                        startRadius: 0,
-                        endRadius: 400
-                    )
-                }
-                .ignoresSafeArea()
-                
-                VStack(spacing: AppSpacing.xl) {
-                    Spacer()
-                    
-                    // Выбор книги
-                    if let book = selectedBook {
-                        Button {
-                            showBookPicker = true
-                        } label: {
-                            HStack(spacing: AppSpacing.md) {
-                                BookCoverView(book: book, size: .small)
-                                
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text(book.title)
-                                        .font(AppTypography.headline)
-                                        .foregroundColor(AppColors.textPrimary)
-                                        .lineLimit(1)
-                                    
-                                    Text(book.author)
-                                        .font(AppTypography.caption)
-                                        .foregroundColor(AppColors.textSecondary)
-                                }
-                                
-                                Spacer()
-                                
-                                Image(systemName: "chevron.down")
-                                    .foregroundColor(AppColors.textMuted)
-                            }
-                            .padding(AppSpacing.md)
-                            .background(
-                                RoundedRectangle(cornerRadius: AppRadius.md)
-                                    .fill(AppColors.cardBackground)
-                            )
-                        }
-                        .padding(.horizontal, AppSpacing.screenPadding)
-                    } else {
-                        GlassButton("Выберите книгу", icon: "book", style: .secondary) {
-                            showBookPicker = true
-                        }
-                    }
-                    
-                    // Распознанный текст
-                    if isRecording || !speechService.recognizedText.isEmpty {
-                        GlassCard {
-                            Text(speechService.recognizedText.isEmpty ? "Говорите..." : speechService.recognizedText)
-                                .font(AppTypography.body)
-                                .foregroundColor(AppColors.textPrimary)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .frame(minHeight: 100)
-                        }
-                        .padding(.horizontal, AppSpacing.screenPadding)
-                    }
-                    
-                    Spacer()
-                    
-                    // Кнопка записи
-                    FloatingActionButton(
-                        icon: "mic.fill",
-                        size: 80,
-                        isRecording: isRecording
-                    ) {
-                        toggleRecording()
-                    }
-                    .disabled(selectedBook == nil)
-                    .opacity(selectedBook == nil ? 0.5 : 1)
-                    
-                    Text(isRecording ? "Нажмите, чтобы остановить" : "Нажмите, чтобы начать запись")
-                        .font(AppTypography.caption)
-                        .foregroundColor(AppColors.textMuted)
-                    
-                    Spacer()
-                }
+                background
+                content
             }
             .navigationTitle("Быстрая заметка")
             .navigationBarTitleDisplayMode(.inline)
@@ -202,7 +116,108 @@ struct QuickRecordView: View {
             }
         }
     }
-    
+
+    private var background: some View {
+        ZStack {
+            AppGradients.background
+
+            RadialGradient(
+                colors: [
+                    AppColors.orange.opacity(0.3),
+                    AppColors.accent.opacity(0.1),
+                    Color.clear
+                ],
+                center: .center,
+                startRadius: 0,
+                endRadius: 400
+            )
+        }
+        .ignoresSafeArea()
+    }
+
+    private var content: some View {
+        VStack(spacing: AppSpacing.xl) {
+            Spacer()
+            selectedBookButton
+            recognizedTextCard
+            Spacer()
+            recordButton
+            recordHint
+            Spacer()
+        }
+    }
+
+    @ViewBuilder
+    private var selectedBookButton: some View {
+        if let book = selectedBook {
+            Button {
+                showBookPicker = true
+            } label: {
+                HStack(spacing: AppSpacing.md) {
+                    BookCoverView(book: book, size: .small)
+
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(book.title)
+                            .font(AppTypography.headline)
+                            .foregroundColor(AppColors.textPrimary)
+                            .lineLimit(1)
+
+                        Text(book.author)
+                            .font(AppTypography.caption)
+                            .foregroundColor(AppColors.textSecondary)
+                    }
+
+                    Spacer()
+
+                    Image(systemName: "chevron.down")
+                        .foregroundColor(AppColors.textMuted)
+                }
+                .padding(AppSpacing.md)
+                .background(
+                    RoundedRectangle(cornerRadius: AppRadius.md)
+                        .fill(AppColors.cardBackground)
+                )
+            }
+            .padding(.horizontal, AppSpacing.screenPadding)
+        } else {
+            GlassButton("Выберите книгу", icon: "book", style: .secondary) {
+                showBookPicker = true
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var recognizedTextCard: some View {
+        if isRecording || !speechService.recognizedText.isEmpty {
+            GlassCard {
+                Text(speechService.recognizedText.isEmpty ? "Говорите..." : speechService.recognizedText)
+                    .font(AppTypography.body)
+                    .foregroundColor(AppColors.textPrimary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .frame(minHeight: 100)
+            }
+            .padding(.horizontal, AppSpacing.screenPadding)
+        }
+    }
+
+    private var recordButton: some View {
+        FloatingActionButton(
+            icon: "mic.fill",
+            size: 80,
+            isRecording: isRecording
+        ) {
+            toggleRecording()
+        }
+        .disabled(selectedBook == nil)
+        .opacity(selectedBook == nil ? 0.5 : 1)
+    }
+
+    private var recordHint: some View {
+        Text(isRecording ? "Нажмите, чтобы остановить" : "Нажмите, чтобы начать запись")
+            .font(AppTypography.caption)
+            .foregroundColor(AppColors.textMuted)
+    }
+
     private func toggleRecording() {
         if isRecording {
             speechService.stopRecording()
