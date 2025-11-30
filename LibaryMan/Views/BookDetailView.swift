@@ -167,7 +167,7 @@ struct BookDetailView: View {
     private var headerSection: some View {
         VStack(spacing: AppSpacing.lg) {
             // Обложка
-            BookCoverView(book: currentBook, size: .large, showProgress: true)
+            BookCoverView(book: currentBook, size: .large)
                 .shadow(color: AppColors.accent.opacity(0.3), radius: 30, y: 10)
             
             // Название и автор
